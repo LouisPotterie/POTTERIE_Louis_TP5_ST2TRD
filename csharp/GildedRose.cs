@@ -9,6 +9,17 @@ namespace csharp
         {
             this.Items = Items;
         }
+        
+        private void DecreaseQuality(int i)
+        {
+            Items[i].Quality = Items[i].Quality - 1;
+        }
+        
+        private void IncreaseQuality(int i)
+        {
+            Items[i].Quality = Items[i].Quality + 1;
+        }
+        
 
         public void UpdateQuality()
         {
@@ -20,7 +31,7 @@ namespace csharp
                     {
                         if (Items[i].Name != "Sulfuras, Hand of Ragnaros")
                         {
-                            Items[i].Quality = Items[i].Quality - 1;
+                            DecreaseQuality(i);
                         }
                     }
                 }
@@ -28,7 +39,7 @@ namespace csharp
                 {
                     if (Items[i].Quality < 50)
                     {
-                        Items[i].Quality = Items[i].Quality + 1;
+                        IncreaseQuality(i);
 
                         if (Items[i].Name == "Backstage passes to a TAFKAL80ETC concert")
                         {
@@ -36,7 +47,7 @@ namespace csharp
                             {
                                 if (Items[i].Quality < 50)
                                 {
-                                    Items[i].Quality = Items[i].Quality + 1;
+                                    IncreaseQuality(i);
                                 }
                             }
 
@@ -44,7 +55,7 @@ namespace csharp
                             {
                                 if (Items[i].Quality < 50)
                                 {
-                                    Items[i].Quality = Items[i].Quality + 1;
+                                    IncreaseQuality(i);
                                 }
                             }
                         }
@@ -66,7 +77,7 @@ namespace csharp
                             {
                                 if (Items[i].Name != "Sulfuras, Hand of Ragnaros")
                                 {
-                                    Items[i].Quality = Items[i].Quality - 1;
+                                    DecreaseQuality(i);
                                 }
                             }
                         }
@@ -79,11 +90,13 @@ namespace csharp
                     {
                         if (Items[i].Quality < 50)
                         {
-                            Items[i].Quality = Items[i].Quality + 1;
+                            IncreaseQuality(i);
                         }
                     }
                 }
             }
         }
+
+        
     }
 }

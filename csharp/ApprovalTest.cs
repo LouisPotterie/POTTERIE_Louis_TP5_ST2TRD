@@ -21,8 +21,13 @@ namespace csharp
 
             Program.Main(new string[] { });
             var output = fakeoutput.ToString();
+            
+            var text = System.IO.File.ReadAllText(@"ApprovalTestThirtyDays.txt");
+            var approvalTest = "";
+            
+            Assert.AreEqual(text, output);
 
-            Approvals.Verify(output);
+            //Approvals.Verify(output);
         }
     }
 }
