@@ -10,68 +10,68 @@ namespace csharp
             this.Items = Items;
         }
         
-        private void DecreaseQuality(int i)
+        private void DecreaseQuality(Item item)
         {
-            Items[i].Quality = Items[i].Quality - 1;
+            item.Quality -= 1;
         }
         
-        private void IncreaseQuality(int i)
+        private void IncreaseQuality(Item item)
         {
-            Items[i].Quality = Items[i].Quality + 1;
+            item.Quality += 1;
         }
         
-        private void SellInDecrease(int i)
+        private void SellInDecrease(Item item)
         {
-            Items[i].SellIn = Items[i].SellIn - 1;
+            item.SellIn -= 1;
         }
         
-        private bool IsBackstage(int i)
+        private bool IsBackstage(Item item)
         {
-            return Items[i].Name == "Backstage passes to a TAFKAL80ETC concert";
-        }
-
-        private bool IsNotSulfuras(int i)
-        {
-            return Items[i].Name != "Sulfuras, Hand of Ragnaros";
+            return item.Name == "Backstage passes to a TAFKAL80ETC concert";
         }
         
-        private void ResetQualityToZero(int i)
+        private bool IsNotSulfuras(Item item)
         {
-            Items[i].Quality = Items[i].Quality - Items[i].Quality;
+            return item.Name != "Sulfuras, Hand of Ragnaros";
         }
         
-        private bool isAgedBrie(int i)
+        private void ResetQualityToZero(Item item)
+        { 
+            item.Quality -= item.Quality;
+        }
+        
+        private bool isAgedBrie(Item item)
         {
-            return Items[i].Name == "Aged Brie";
+            return item.Name == "Aged Brie";
         }
         
 
         public void UpdateQuality()
         {
-            for (var i = 0; i < Items.Count; i++)
+            foreach (var item in Items)
             {
-                if (IsNotSulfuras(i))
+                if (IsNotSulfuras(item))
                 {
-                    if (Items[i].Name is "Aged Brie" or "Backstage passes to a TAFKAL80ETC concert") 
+                    if (item.Name is "Aged Brie" or "Backstage passes to a TAFKAL80ETC concert") 
                     {
-                        if (Items[i].Quality < 50)
+                        if (item.Quality < 50)
                         {
-                            IncreaseQuality(i);
+                            IncreaseQuality(item);
 
-                            if (IsBackstage(i))
+                            if (IsBackstage(item))
                             { 
-                                if (Items[i].SellIn < 11) 
+                                if (item.SellIn < 11) 
                                 { 
-                                    if (Items[i].Quality < 50) 
+                                    if (item.Quality < 50) 
                                     { 
-                                        IncreaseQuality(i); 
+                                        IncreaseQuality(item); 
                                     } 
                                 }
-                                if (Items[i].SellIn < 6) 
+                                if (item.SellIn < 6) 
                                 { 
-                                    if (Items[i].Quality < 50) 
+                                    if (item.Quality < 50) 
                                     { 
-                                        IncreaseQuality(i); 
+                                        IncreaseQuality(item); 
                                     }
                                 }
                             }
@@ -79,38 +79,38 @@ namespace csharp
                     }
                     else
                     {
-                        if (Items[i].Quality > 0)
+                        if (item.Quality > 0)
                         {
-                            DecreaseQuality(i);
+                            DecreaseQuality(item);
                         }
                         
                     }
                     
-                    SellInDecrease(i);
+                    SellInDecrease(item);
                     
-                    if (Items[i].SellIn < 0)
+                    if (item.SellIn < 0)
                     {
                         
-                        switch (isAgedBrie(i))
+                        switch (isAgedBrie(item))
                         {
                             
                             case true :
-                                if (Items[i].Quality < 50)
+                                if (item.Quality < 50)
                                 {
-                                    IncreaseQuality(i);
+                                    IncreaseQuality(item);
                                 }
                                 break;
                             
                             case false :
-                                if (IsBackstage(i))
+                                if (IsBackstage(item))
                                 {
-                                    ResetQualityToZero(i);
+                                    ResetQualityToZero(item);
                                 }
                                 else
                                 {
-                                    if (Items[i].Quality > 0)
+                                    if (item.Quality > 0)
                                     {
-                                        DecreaseQuality(i);
+                                        DecreaseQuality(item);
                                     }
                                 }
                                 break;
@@ -122,6 +122,9 @@ namespace csharp
                 }
                 
             }
+            
+            
+            
         }
 
         
