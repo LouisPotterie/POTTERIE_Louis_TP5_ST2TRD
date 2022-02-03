@@ -44,12 +44,24 @@
             return item.Name == "Aged Brie";
         }
         
+        private bool isConjured(Item item)
+        {
+            var s = item.Name;
+            var subs = s.Split(' ');
+            return subs[0] == "Conjured";
+        }
+        
+        private bool IsAgedBrieOrConcertTicket(Item item)
+        {
+            return item.Name is "Aged Brie" or "Backstage passes to a TAFKAL80ETC concert";
+        }
+        
         public void UpdateItem()
         {
             
                 if (IsNotSulfuras(item))
                 {
-                    if (item.Name is "Aged Brie" or "Backstage passes to a TAFKAL80ETC concert") 
+                    if (IsAgedBrieOrConcertTicket(item)) 
                     {
                         if (item.Quality < 50)
                         {
@@ -73,6 +85,11 @@
                                 }
                             }
                         }
+                    }
+                    else if (isConjured(item))
+                    {
+                        DecreaseQuality(item);
+                        DecreaseQuality(item);
                     }
                     else
                     {
@@ -103,6 +120,14 @@
                                 {
                                     ResetQualityToZero(item);
                                 }
+                                else if (isConjured(item))
+                                {
+                                    if (item.Quality > 0)
+                                    {
+                                        DecreaseQuality(item);
+                                        DecreaseQuality(item);
+                                    }
+                                }
                                 else
                                 {
                                     if (item.Quality > 0)
@@ -119,7 +144,7 @@
                 }
                 
         }
-        
+
         
     }
 }
