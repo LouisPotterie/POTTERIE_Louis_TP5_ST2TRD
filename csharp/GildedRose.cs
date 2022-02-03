@@ -25,12 +25,32 @@ namespace csharp
             Items[i].SellIn = Items[i].SellIn - 1;
         }
         
+        private bool IsBackstage(int i)
+        {
+            return Items[i].Name == "Backstage passes to a TAFKAL80ETC concert";
+        }
+
+        private bool IsNotSulfuras(int i)
+        {
+            return Items[i].Name != "Sulfuras, Hand of Ragnaros";
+        }
+        
+        private void ResetQualityToZero(int i)
+        {
+            Items[i].Quality = Items[i].Quality - Items[i].Quality;
+        }
+        
+        private bool isAgedBrie(int i)
+        {
+            return Items[i].Name == "Aged Brie";
+        }
+        
 
         public void UpdateQuality()
         {
             for (var i = 0; i < Items.Count; i++)
             {
-                if (Items[i].Name != "Sulfuras, Hand of Ragnaros")
+                if (IsNotSulfuras(i))
                 {
                     if (Items[i].Name is "Aged Brie" or "Backstage passes to a TAFKAL80ETC concert") 
                     {
@@ -38,7 +58,7 @@ namespace csharp
                         {
                             IncreaseQuality(i);
 
-                            if (Items[i].Name == "Backstage passes to a TAFKAL80ETC concert")
+                            if (IsBackstage(i))
                             { 
                                 if (Items[i].SellIn < 11) 
                                 { 
@@ -70,28 +90,34 @@ namespace csharp
                     
                     if (Items[i].SellIn < 0)
                     {
-                        if (Items[i].Name != "Aged Brie")
+                        
+                        switch (isAgedBrie(i))
                         {
-                            if (Items[i].Name == "Backstage passes to a TAFKAL80ETC concert")
-                            {
-                                
-                                Items[i].Quality = Items[i].Quality - Items[i].Quality;
-                            }
-                            else
-                            {
-                                if (Items[i].Quality > 0)
+                            
+                            case true :
+                                if (Items[i].Quality < 50)
                                 {
-                                    DecreaseQuality(i);
+                                    IncreaseQuality(i);
                                 }
-                            }
+                                break;
+                            
+                            case false :
+                                if (IsBackstage(i))
+                                {
+                                    ResetQualityToZero(i);
+                                }
+                                else
+                                {
+                                    if (Items[i].Quality > 0)
+                                    {
+                                        DecreaseQuality(i);
+                                    }
+                                }
+                                break;
+
+
                         }
-                        else
-                        {
-                            if (Items[i].Quality < 50)
-                            {
-                                IncreaseQuality(i);
-                            }
-                        }
+                        
                     } 
                 }
                 

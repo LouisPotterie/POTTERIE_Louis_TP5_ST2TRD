@@ -44,13 +44,16 @@ namespace csharp
             {
                 Console.WriteLine("-------- day " + i + " --------");
                 Console.WriteLine("name, sellIn, quality");
-                for (var j = 0; j < Items.Count; j++)
+                
+                foreach (var product in Items)
                 {
-                    System.Console.WriteLine(Items[j]);
+                    Console.WriteLine(product);
                 }
                 Console.WriteLine("");
                 app.UpdateQuality();
             }
+            
+            
 
              
             
