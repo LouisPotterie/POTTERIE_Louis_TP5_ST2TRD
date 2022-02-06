@@ -1,4 +1,4 @@
-TP 5 C# is in the csharp directory : 
+### TP 5 C# is in the csharp directory : https://github.com/LouisPotterie/POTTERIE_Louis_TP5_ST2TRD/tree/main/csharp
 
 
 
